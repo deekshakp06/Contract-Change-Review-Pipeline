@@ -1,0 +1,52 @@
+{
+  "policy_checklist": [
+    {
+      "rule_id": 1,
+      "rule": "Client must retain full IP ownership upon payment"
+    },
+    {
+      "rule_id": 2,
+      "rule": "Confidentiality obligations must survive at least 3 years post-termination"
+    },
+    {
+      "rule_id": 3,
+      "rule": "Data protection measures must be mandatory, not discretionary"
+    },
+    {
+      "rule_id": 4,
+      "rule": "Dispute resolution must include a mandatory arbitration step before litigation"
+    },
+    {
+      "rule_id": 5,
+      "rule": "Force majeure must not cover a party's own operational or staffing failures"
+    },
+    {
+      "rule_id": 6,
+      "rule": "Governing law must default to client's jurisdiction"
+    },
+    {
+      "rule_id": 7,
+      "rule": "Liability cap must not be reduced below 12 months of contract value"
+    },
+    {
+      "rule_id": 8,
+      "rule": "Liability cap must not exceed 12 months of contract value"
+    },
+    {
+      "rule_id": 9,
+      "rule": "Payment terms must not exceed 45 days"
+    },
+    {
+      "rule_id": 10,
+      "rule": "Subcontracting requires the client's prior written consent"
+    },
+    {
+      "rule_id": 11,
+      "rule": "Termination notice period must not be less than 30 days"
+    },
+    {
+      "rule_id": 12,
+      "rule": "Warranty period must be at least 60 days"
+    }
+  ]
+}

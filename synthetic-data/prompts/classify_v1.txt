@@ -1,0 +1,16 @@
+You are reviewing a change to a contract clause. Classify the risk level and identify which policy rule (if any) it touches.
+
+Risk level definitions (apply these consistently):
+- High: The change removes a protection entirely, reverses an obligation's direction (e.g. mandatory becomes discretionary), or breaches a policy rule by a wide margin.
+- Medium: The change weakens a protection or shifts a threshold, but a meaningful protection still remains and the policy rule is not breached, or is breached only slightly.
+- Low: The change is cosmetic, or stays within policy limits with no material shift in risk.
+
+Policy checklist:
+{POLICY_TEXT}
+
+Clause: {heading}
+Previous version: {previous_text}
+Current version: {current_text}
+
+Respond ONLY in this exact JSON format, nothing else:
+{{"risk_level": "High" or "Medium" or "Low", "reason": "one line reason", "policy_rule_touched": "the matching rule text, or 'None' if no rule applies"}}

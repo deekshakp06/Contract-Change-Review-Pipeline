@@ -1,0 +1,402 @@
+[
+  {
+    "pair_id": 1,
+    "clause_id": "2",
+    "heading": "Termination",
+    "previous_text": "Either party may terminate this agreement with 60 days written notice.",
+    "current_text": "Either party may terminate this agreement with 45 days written notice.",
+    "risk_level": "Medium",
+    "reason": "Notice period shortened but still reasonable.",
+    "policy_rule": "Termination notice period must not be less than 30 days"
+  },
+  {
+    "pair_id": 1,
+    "clause_id": "11",
+    "heading": "Subcontracting",
+    "previous_text": "The vendor shall not subcontract any part of this engagement without the client's prior written consent.",
+    "current_text": "The vendor may subcontract any part of this engagement at its sole discretion.",
+    "risk_level": "High",
+    "reason": "Client's approval right over subcontracting removed entirely.",
+    "policy_rule": "Subcontracting requires the client's prior written consent"
+  },
+  {
+    "pair_id": 2,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 1 year following termination.",
+    "risk_level": "High",
+    "reason": "Confidentiality period drastically shortened.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 2,
+    "clause_id": "11",
+    "heading": "Subcontracting",
+    "previous_text": "The vendor shall not subcontract any part of this engagement without the client's prior written consent.",
+    "current_text": "The vendor may subcontract any part of this engagement at its sole discretion.",
+    "risk_level": "High",
+    "reason": "Client's approval right over subcontracting removed entirely.",
+    "policy_rule": "Subcontracting requires the client's prior written consent"
+  },
+  {
+    "pair_id": 3,
+    "clause_id": "9",
+    "heading": "Dispute Resolution",
+    "previous_text": "Any dispute arising under this agreement shall first be resolved through good-faith negotiation, followed by binding arbitration if unresolved within 30 days.",
+    "current_text": "Any dispute arising under this agreement shall be resolved solely through litigation in the vendor's chosen jurisdiction.",
+    "risk_level": "High",
+    "reason": "Arbitration path removed, forcing costly litigation in vendor-favored jurisdiction.",
+    "policy_rule": "Dispute resolution must include a mandatory arbitration step before litigation"
+  },
+  {
+    "pair_id": 3,
+    "clause_id": "11",
+    "heading": "Subcontracting",
+    "previous_text": "The vendor shall not subcontract any part of this engagement without the client's prior written consent.",
+    "current_text": "The vendor may subcontract any part of this engagement at its sole discretion.",
+    "risk_level": "High",
+    "reason": "Client's approval right over subcontracting removed entirely.",
+    "policy_rule": "Subcontracting requires the client's prior written consent"
+  },
+  {
+    "pair_id": 4,
+    "clause_id": "1",
+    "heading": "Payment Terms",
+    "previous_text": "Payment shall be made within 30 days of invoice receipt.",
+    "current_text": "Payment shall be made within 45 days of invoice receipt.",
+    "risk_level": "Low",
+    "reason": "Minor extension within acceptable range.",
+    "policy_rule": "Payment terms must not exceed 45 days"
+  },
+  {
+    "pair_id": 4,
+    "clause_id": "11",
+    "heading": "Subcontracting",
+    "previous_text": "The vendor shall not subcontract any part of this engagement without the client's prior written consent.",
+    "current_text": "The vendor may subcontract any part of this engagement at its sole discretion.",
+    "risk_level": "High",
+    "reason": "Client's approval right over subcontracting removed entirely.",
+    "policy_rule": "Subcontracting requires the client's prior written consent"
+  },
+  {
+    "pair_id": 5,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 1 year following termination.",
+    "risk_level": "High",
+    "reason": "Confidentiality period drastically shortened.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 5,
+    "clause_id": "9",
+    "heading": "Dispute Resolution",
+    "previous_text": "Any dispute arising under this agreement shall first be resolved through good-faith negotiation, followed by binding arbitration if unresolved within 30 days.",
+    "current_text": "Any dispute arising under this agreement shall be resolved solely through litigation in the vendor's chosen jurisdiction.",
+    "risk_level": "High",
+    "reason": "Arbitration path removed, forcing costly litigation in vendor-favored jurisdiction.",
+    "policy_rule": "Dispute resolution must include a mandatory arbitration step before litigation"
+  },
+  {
+    "pair_id": 6,
+    "clause_id": "9",
+    "heading": "Dispute Resolution",
+    "previous_text": "Any dispute arising under this agreement shall first be resolved through good-faith negotiation, followed by binding arbitration if unresolved within 30 days.",
+    "current_text": "Any dispute arising under this agreement shall be resolved solely through litigation in the vendor's chosen jurisdiction.",
+    "risk_level": "High",
+    "reason": "Arbitration path removed, forcing costly litigation in vendor-favored jurisdiction.",
+    "policy_rule": "Dispute resolution must include a mandatory arbitration step before litigation"
+  },
+  {
+    "pair_id": 6,
+    "clause_id": "11",
+    "heading": "Subcontracting",
+    "previous_text": "The vendor shall not subcontract any part of this engagement without the client's prior written consent.",
+    "current_text": "The vendor may subcontract any part of this engagement at its sole discretion.",
+    "risk_level": "High",
+    "reason": "Client's approval right over subcontracting removed entirely.",
+    "policy_rule": "Subcontracting requires the client's prior written consent"
+  },
+  {
+    "pair_id": 7,
+    "clause_id": "8",
+    "heading": "Data Protection",
+    "previous_text": "The vendor shall implement industry-standard data protection measures and comply with applicable data privacy laws.",
+    "current_text": "The vendor shall implement reasonable data protection measures where feasible.",
+    "risk_level": "High",
+    "reason": "Data protection obligation weakened from mandatory to discretionary.",
+    "policy_rule": "Data protection measures must be mandatory, not discretionary"
+  },
+  {
+    "pair_id": 7,
+    "clause_id": "10",
+    "heading": "Force Majeure",
+    "previous_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, or government action.",
+    "current_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, government action, or vendor staffing shortages.",
+    "risk_level": "Medium",
+    "reason": "Force majeure scope broadened to cover vendor's own staffing issues, reducing vendor accountability.",
+    "policy_rule": "Force majeure must not cover a party's own operational or staffing failures"
+  },
+  {
+    "pair_id": 8,
+    "clause_id": "3",
+    "heading": "Liability",
+    "previous_text": "The vendor's total liability shall not exceed the total fees paid in the preceding 12 months.",
+    "current_text": "The vendor's liability shall be unlimited.",
+    "risk_level": "High",
+    "reason": "Liability cap removed entirely.",
+    "policy_rule": "Liability cap must not exceed 12 months of contract value"
+  },
+  {
+    "pair_id": 8,
+    "clause_id": "7",
+    "heading": "Governing Law",
+    "previous_text": "This agreement shall be governed by the laws of the state in which the client's principal office is located.",
+    "current_text": "This agreement shall be governed by the laws of the state in which the vendor's principal office is located.",
+    "risk_level": "Medium",
+    "reason": "Governing law jurisdiction shifted to vendor's favor.",
+    "policy_rule": "Governing law must default to client's jurisdiction"
+  },
+  {
+    "pair_id": 9,
+    "clause_id": "3",
+    "heading": "Liability",
+    "previous_text": "The vendor's total liability shall not exceed the total fees paid in the preceding 12 months.",
+    "current_text": "The vendor's liability shall be unlimited.",
+    "risk_level": "High",
+    "reason": "Liability cap removed entirely.",
+    "policy_rule": "Liability cap must not exceed 12 months of contract value"
+  },
+  {
+    "pair_id": 9,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 1 year following termination.",
+    "risk_level": "High",
+    "reason": "Confidentiality period drastically shortened.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 10,
+    "clause_id": "2",
+    "heading": "Termination",
+    "previous_text": "Either party may terminate this agreement with 60 days written notice.",
+    "current_text": "Either party may terminate this agreement with 45 days written notice.",
+    "risk_level": "Medium",
+    "reason": "Notice period shortened but still reasonable.",
+    "policy_rule": "Termination notice period must not be less than 30 days"
+  },
+  {
+    "pair_id": 10,
+    "clause_id": "7",
+    "heading": "Governing Law",
+    "previous_text": "This agreement shall be governed by the laws of the state in which the client's principal office is located.",
+    "current_text": "This agreement shall be governed by the laws of the state in which the vendor's principal office is located.",
+    "risk_level": "Medium",
+    "reason": "Governing law jurisdiction shifted to vendor's favor.",
+    "policy_rule": "Governing law must default to client's jurisdiction"
+  },
+  {
+    "pair_id": 11,
+    "clause_id": "6",
+    "heading": "Warranties",
+    "previous_text": "The vendor warrants that all deliverables shall be free from material defects for a period of 90 days following delivery.",
+    "current_text": "The vendor warrants that all deliverables shall be free from material defects for a period of 30 days following delivery.",
+    "risk_level": "Medium",
+    "reason": "Warranty period shortened from 90 to 30 days.",
+    "policy_rule": "Warranty period must be at least 60 days"
+  },
+  {
+    "pair_id": 11,
+    "clause_id": "10",
+    "heading": "Force Majeure",
+    "previous_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, or government action.",
+    "current_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, government action, or vendor staffing shortages.",
+    "risk_level": "Medium",
+    "reason": "Force majeure scope broadened to cover vendor's own staffing issues, reducing vendor accountability.",
+    "policy_rule": "Force majeure must not cover a party's own operational or staffing failures"
+  },
+  {
+    "pair_id": 12,
+    "clause_id": "8",
+    "heading": "Data Protection",
+    "previous_text": "The vendor shall implement industry-standard data protection measures and comply with applicable data privacy laws.",
+    "current_text": "The vendor shall implement reasonable data protection measures where feasible.",
+    "risk_level": "High",
+    "reason": "Data protection obligation weakened from mandatory to discretionary.",
+    "policy_rule": "Data protection measures must be mandatory, not discretionary"
+  },
+  {
+    "pair_id": 12,
+    "clause_id": "9",
+    "heading": "Dispute Resolution",
+    "previous_text": "Any dispute arising under this agreement shall first be resolved through good-faith negotiation, followed by binding arbitration if unresolved within 30 days.",
+    "current_text": "Any dispute arising under this agreement shall be resolved solely through litigation in the vendor's chosen jurisdiction.",
+    "risk_level": "High",
+    "reason": "Arbitration path removed, forcing costly litigation in vendor-favored jurisdiction.",
+    "policy_rule": "Dispute resolution must include a mandatory arbitration step before litigation"
+  },
+  {
+    "pair_id": 13,
+    "clause_id": "2",
+    "heading": "Termination",
+    "previous_text": "Either party may terminate this agreement with 60 days written notice.",
+    "current_text": "Either party may terminate this agreement with 10 days written notice.",
+    "risk_level": "High",
+    "reason": "Notice period drastically reduced, insufficient response time.",
+    "policy_rule": "Termination notice period must not be less than 30 days"
+  },
+  {
+    "pair_id": 13,
+    "clause_id": "9",
+    "heading": "Dispute Resolution",
+    "previous_text": "Any dispute arising under this agreement shall first be resolved through good-faith negotiation, followed by binding arbitration if unresolved within 30 days.",
+    "current_text": "Any dispute arising under this agreement shall be resolved solely through litigation in the vendor's chosen jurisdiction.",
+    "risk_level": "High",
+    "reason": "Arbitration path removed, forcing costly litigation in vendor-favored jurisdiction.",
+    "policy_rule": "Dispute resolution must include a mandatory arbitration step before litigation"
+  },
+  {
+    "pair_id": 14,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 1 year following termination.",
+    "risk_level": "High",
+    "reason": "Confidentiality period drastically shortened.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 14,
+    "clause_id": "10",
+    "heading": "Force Majeure",
+    "previous_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, or government action.",
+    "current_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, government action, or vendor staffing shortages.",
+    "risk_level": "Medium",
+    "reason": "Force majeure scope broadened to cover vendor's own staffing issues, reducing vendor accountability.",
+    "policy_rule": "Force majeure must not cover a party's own operational or staffing failures"
+  },
+  {
+    "pair_id": 15,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 3 years following termination.",
+    "risk_level": "Low",
+    "reason": "Confidentiality period slightly reduced but still meets minimum.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 15,
+    "clause_id": "11",
+    "heading": "Subcontracting",
+    "previous_text": "The vendor shall not subcontract any part of this engagement without the client's prior written consent.",
+    "current_text": "The vendor may subcontract any part of this engagement at its sole discretion.",
+    "risk_level": "High",
+    "reason": "Client's approval right over subcontracting removed entirely.",
+    "policy_rule": "Subcontracting requires the client's prior written consent"
+  },
+  {
+    "pair_id": 16,
+    "clause_id": "2",
+    "heading": "Termination",
+    "previous_text": "Either party may terminate this agreement with 60 days written notice.",
+    "current_text": "Either party may terminate this agreement with 10 days written notice.",
+    "risk_level": "High",
+    "reason": "Notice period drastically reduced, insufficient response time.",
+    "policy_rule": "Termination notice period must not be less than 30 days"
+  },
+  {
+    "pair_id": 16,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 3 years following termination.",
+    "risk_level": "Low",
+    "reason": "Confidentiality period slightly reduced but still meets minimum.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 17,
+    "clause_id": "6",
+    "heading": "Warranties",
+    "previous_text": "The vendor warrants that all deliverables shall be free from material defects for a period of 90 days following delivery.",
+    "current_text": "The vendor warrants that all deliverables shall be free from material defects for a period of 30 days following delivery.",
+    "risk_level": "Medium",
+    "reason": "Warranty period shortened from 90 to 30 days.",
+    "policy_rule": "Warranty period must be at least 60 days"
+  },
+  {
+    "pair_id": 17,
+    "clause_id": "8",
+    "heading": "Data Protection",
+    "previous_text": "The vendor shall implement industry-standard data protection measures and comply with applicable data privacy laws.",
+    "current_text": "The vendor shall implement reasonable data protection measures where feasible.",
+    "risk_level": "High",
+    "reason": "Data protection obligation weakened from mandatory to discretionary.",
+    "policy_rule": "Data protection measures must be mandatory, not discretionary"
+  },
+  {
+    "pair_id": 18,
+    "clause_id": "4",
+    "heading": "Confidentiality",
+    "previous_text": "Both parties shall maintain confidentiality for a period of 5 years following termination.",
+    "current_text": "Both parties shall maintain confidentiality for a period of 3 years following termination.",
+    "risk_level": "Low",
+    "reason": "Confidentiality period slightly reduced but still meets minimum.",
+    "policy_rule": "Confidentiality obligations must survive at least 3 years post-termination"
+  },
+  {
+    "pair_id": 18,
+    "clause_id": "6",
+    "heading": "Warranties",
+    "previous_text": "The vendor warrants that all deliverables shall be free from material defects for a period of 90 days following delivery.",
+    "current_text": "The vendor warrants that all deliverables shall be free from material defects for a period of 30 days following delivery.",
+    "risk_level": "Medium",
+    "reason": "Warranty period shortened from 90 to 30 days.",
+    "policy_rule": "Warranty period must be at least 60 days"
+  },
+  {
+    "pair_id": 19,
+    "clause_id": "3",
+    "heading": "Liability",
+    "previous_text": "The vendor's total liability shall not exceed the total fees paid in the preceding 12 months.",
+    "current_text": "The vendor's total liability shall not exceed the total fees paid in the preceding 6 months.",
+    "risk_level": "Medium",
+    "reason": "Liability cap reduced, less protection for client.",
+    "policy_rule": "Liability cap must not be reduced below 12 months of contract value"
+  },
+  {
+    "pair_id": 19,
+    "clause_id": "10",
+    "heading": "Force Majeure",
+    "previous_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, or government action.",
+    "current_text": "Neither party shall be liable for delays caused by events beyond their reasonable control, including natural disasters, war, government action, or vendor staffing shortages.",
+    "risk_level": "Medium",
+    "reason": "Force majeure scope broadened to cover vendor's own staffing issues, reducing vendor accountability.",
+    "policy_rule": "Force majeure must not cover a party's own operational or staffing failures"
+  },
+  {
+    "pair_id": 20,
+    "clause_id": "7",
+    "heading": "Governing Law",
+    "previous_text": "This agreement shall be governed by the laws of the state in which the client's principal office is located.",
+    "current_text": "This agreement shall be governed by the laws of the state in which the vendor's principal office is located.",
+    "risk_level": "Medium",
+    "reason": "Governing law jurisdiction shifted to vendor's favor.",
+    "policy_rule": "Governing law must default to client's jurisdiction"
+  },
+  {
+    "pair_id": 20,
+    "clause_id": "8",
+    "heading": "Data Protection",
+    "previous_text": "The vendor shall implement industry-standard data protection measures and comply with applicable data privacy laws.",
+    "current_text": "The vendor shall implement reasonable data protection measures where feasible.",
+    "risk_level": "High",
+    "reason": "Data protection obligation weakened from mandatory to discretionary.",
+    "policy_rule": "Data protection measures must be mandatory, not discretionary"
+  }
+]

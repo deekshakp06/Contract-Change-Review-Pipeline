@@ -1,0 +1,8 @@
+Classify the risk of this contract clause change as High, Medium or Low.
+
+Clause: {heading}
+Previous version: {previous_text}
+Current version: {current_text}
+
+Respond ONLY in this exact JSON format, nothing else:
+{{"risk_level": "High" or "Medium" or "Low", "reason": "one line reason", "policy_rule_touched": "None"}}

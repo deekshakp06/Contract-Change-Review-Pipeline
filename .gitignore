@@ -1,0 +1,25 @@
+# secrets
+.env
+*.env
+**/.env
+
+# generated / raw outputs (may contain headers or client text)
+synthetic-data/outputs/
+**/n8n_eval/
+
+# old exports
+workflows/*_backup.json
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+# internal docs and old exports
+CCE_v1.json
+CCR_v2.json
+workflows/ContractChangeReview.json
+/*.docx
