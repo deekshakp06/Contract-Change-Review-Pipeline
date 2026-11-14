@@ -68,6 +68,10 @@ n8n (workflow orchestration, Data tables) · Azure OpenAI GPT-5.1 (Responses API
 3. Import `workflows/contract_change_review.json`, attach the credentials and set your own Azure endpoint in the HTTP Request node (the export contains a `YOUR-RESOURCE` placeholder).
 4. Open the form, upload a previous and a current `.docx`, and submit.
 
+## Run it in Docker
+
+`docker-compose.yml` starts n8n with a Postgres backend and a separate task-runner container for Python code. Create a `.env` next to it with `POSTGRES_PASSWORD`, `N8N_ENCRYPTION_KEY` and `N8N_RUNNERS_AUTH_TOKEN` (never commit it), then run `docker compose up -d` and open http://localhost:5678. The `n8n-task-runners.json` file allows the Python standard-library imports the clause extraction needs. After a `docker compose down` and `up -d`, the queues, workflow and credentials are still there.
+
 ## What I found
 
 The n8n workflow shares its base prompt (`classify_v1`) with the Python reference and adds an injection-guard wrapper. n8n made it fast to wire up intake, retries, queues and tracing. It was weaker on document handling (no native DOCX support), code isolation (a Python node cannot read other nodes), rate limiting (batching only) and consistency across nodes (no transactions). It is a solid fit for a supervised pilot; volume, restart and queue-mode behaviour were not tested. Details in [`VERDICT.md`](VERDICT.md).

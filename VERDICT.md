@@ -2,7 +2,7 @@
 
 ## Verdict: TRIAL (supervised pilot only)
 
-1. Two of the four hard tests passed on n8n: partial failure (failed clauses land in an error queue and are resumed while the rest finishes) and repeat delivery (a repeated pair returns the saved pack with no model call).
+1. Two of the four hard tests passed on n8n: partial failure (failed clauses land in an error queue and are resumed while the rest finishes) and repeat delivery (a repeated pair returns the saved pack with no model call). Restart recovery on Postgres also passed.
 2. The other two were not shown: volume (200 clauses, 20 documents per night) and controlled prompt release (the release check exists only in the Python reference, not in n8n).
 3. Several operational needs (growing retry delay, cost ceiling, rate limiting, prompts as versioned files, workflow export to git) take more hand-built work in n8n than in plain code.
 
@@ -33,9 +33,14 @@
 - A webhook "last node" response is fragile with parallel branches; an explicit Respond to Webhook node is needed.
 - Per-clause latency is not available in Langfuse; a per-run `metrics` table was added by hand (clauses sent and skipped, tokens, cost, failures, duration).
 
-## Not tested (blocked by Docker access)
+## Docker and Postgres (tested locally)
 
-Postgres backend, queue mode with workers, self-hosted Langfuse, container restart recovery, the watched-folder intake, and the volume runs.
+- **Passed:** n8n on a Postgres backend ran the workflow; after `docker compose down` and `up -d` all 14 error-queue rows, the workflow and the credentials were still there (restart recovery).
+- **Could not test the model call in Docker:** the Azure endpoint is only reachable through the Bosch proxy, which a fresh container does not inherit. Every clause went to the error queue, which also confirmed that failures are isolated and stored with their text.
+
+## Not tested
+
+Queue mode with workers, self-hosted Langfuse, the watched-folder intake, and the volume runs (200 clauses, 20 documents).
 
 ## Not built
 
@@ -43,4 +48,4 @@ PDF input, page numbers, the sub-workflow split, per-call cost, latency per clau
 
 ## Recommendation
 
-Use n8n for a supervised pilot where a person reviews the human queue. Do not move it to production until volume, restart recovery and a controlled prompt release have been shown, and until prompts and workflows are kept in git as the source of truth.
+Use n8n for a supervised pilot where a person reviews the human queue. Do not move it to production until volume, queue-mode workers and a controlled prompt release have been shown, and until prompts and workflows are kept in git as the source of truth.
