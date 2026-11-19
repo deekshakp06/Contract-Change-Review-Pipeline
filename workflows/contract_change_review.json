@@ -21,12 +21,12 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.6,
       "position": [
-        -1520,
-        80
+        -688,
+        384
       ],
-      "id": "a6cd7a1e-b600-4ff5-8e19-67adff13507a",
+      "id": "819efd42-c782-440b-acfa-578c469c516c",
       "name": "On form submission",
-      "webhookId": "218a888f-3348-4c20-96bf-24bde47a5261"
+      "webhookId": "de542f41-5315-45de-b36b-0fa9be4267f1"
     },
     {
       "parameters": {
@@ -36,10 +36,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -704,
-        -32
+        816,
+        384
       ],
-      "id": "5bd5230d-8cab-4b7e-bd17-c0dd9f728a60",
+      "id": "e6473efc-d590-442c-9926-ddbdac8bfe5e",
       "name": "Code in Python",
       "onError": "continueErrorOutput"
     },
@@ -64,10 +64,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        592,
-        -192
+        2336,
+        224
       ],
-      "id": "80e4db0d-3125-4eee-9814-158d031c3f9a",
+      "id": "c3a0be37-01f0-4691-9a43-331dd5bf0a98",
       "name": "HTTP Request",
       "retryOnFail": true,
       "waitBetweenTries": 1000,
@@ -75,7 +75,7 @@
       "customTelemetryTags": {},
       "credentials": {
         "httpHeaderAuth": {
-          "id": "VgLWwmtJERW8qpm3",
+          "id": "MteNzMXHC8pyaCpE",
           "name": "Azure GPT-5.1"
         }
       },
@@ -89,10 +89,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        256,
-        -32
+        2000,
+        384
       ],
-      "id": "fc9d85f8-8194-4d65-9f67-c0ffb9206b21",
+      "id": "9456e54f-44ec-4aec-a11b-a022eeebed6e",
       "name": "Build prompt"
     },
     {
@@ -104,10 +104,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        768,
-        -352
+        2512,
+        64
       ],
-      "id": "0f9fd49f-fe02-4e12-8ab2-9a28538b7e95",
+      "id": "62d83a0f-84b9-4fa9-b485-36d06038f6f9",
       "name": "Edit Fields"
     },
     {
@@ -118,10 +118,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1168,
-        -176
+        2912,
+        240
       ],
-      "id": "79d9d1b3-6bd5-41f7-9f31-82fe38c0f171",
+      "id": "75ea5b83-153d-46f9-800f-5c6b1dee1bd5",
       "name": "Build pack",
       "retryOnFail": false,
       "maxTries": 4,
@@ -155,10 +155,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        416,
-        -32
+        2160,
+        384
       ],
-      "id": "a5b3ae50-75de-42eb-8e3e-021281b8be85",
+      "id": "57cbdcad-2038-46f8-b86d-954fbf0555d5",
       "name": "Has changes?"
     },
     {
@@ -170,10 +170,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        592,
-        176
+        2336,
+        592
       ],
-      "id": "f1c6ef85-f42d-4744-9a33-5ffff06bfe2e",
+      "id": "f96dba5a-946a-4517-9527-955af1df66d5",
       "name": "No changes1"
     },
     {
@@ -184,26 +184,26 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        928,
-        -176
+        2672,
+        240
       ],
-      "id": "540b1d12-eede-4d2b-be87-7a6299f69fd0",
+      "id": "ca430f4f-cdc6-4320-bbcc-2301e6349989",
       "name": "Parse reply"
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "{\n  \"endpoint_url\": \"https://YOUR-RESOURCE.services.ai.azure.com/openai/v1/responses\",\n  \"model\": \"gpt-5.1\",\n  \"prompt_version\": \"classify_v1\",\n  \"batch_size\": 4,\n  \"max_retries\": 3,\n  \"prompt_template\": \"You are reviewing a change to a contract clause. Classify the risk level and identify which policy rule (if any) it touches.\\n\\nRisk level definitions (apply these consistently):\\n- High: The change removes a protection entirely, reverses an obligation's direction (e.g. mandatory becomes discretionary), or breaches a policy rule by a wide margin.\\n- Medium: The change weakens a protection or shifts a threshold, but a meaningful protection still remains and the policy rule is not breached, or is breached only slightly.\\n- Low: The change is cosmetic, or stays within policy limits with no material shift in risk.\\n\\nPolicy checklist:\\n{POLICY_TEXT}\\n\\nClause: {heading}\\nPrevious version: {previous_text}\\nCurrent version: {current_text}\\n\\nRespond ONLY in this exact JSON format, nothing else:\\n{\\\"risk_level\\\": \\\"High\\\" or \\\"Medium\\\" or \\\"Low\\\", \\\"reason\\\": \\\"one line reason\\\", \\\"policy_rule_touched\\\": \\\"the matching rule text, or 'None' if no rule applies\\\"}\",\n  \"policy_rules\": [\n    \"Client must retain full IP ownership upon payment\",\n    \"Confidentiality obligations must survive at least 3 years post-termination\",\n    \"Data protection measures must be mandatory, not discretionary\",\n    \"Dispute resolution must include a mandatory arbitration step before litigation\",\n    \"Force majeure must not cover a party's own operational or staffing failures\",\n    \"Governing law must default to client's jurisdiction\",\n    \"Liability cap must not be reduced below 12 months of contract value\",\n    \"Liability cap must not exceed 12 months of contract value\",\n    \"Payment terms must not exceed 45 days\",\n    \"Subcontracting requires the client's prior written consent\",\n    \"Termination notice period must not be less than 30 days\",\n    \"Warranty period must be at least 60 days\"\n  ]\n}",
+        "jsonOutput": "={\n  \"endpoint_url\": \"https://YOUR-RESOURCE.services.ai.azure.com/openai/v1/responses\",\n  \"model\": \"gpt-5.1\",\n  \"prompt_version\": \"{{ ($('Live prompt').isExecuted ? $('Live prompt') : $('Live prompt (resume)')).first().json.version }}\",\n  \"batch_size\": 4,\n  \"max_retries\": 3,\n  \"prompt_template\": {{ JSON.stringify(($('Live prompt').isExecuted ? $('Live prompt') : $('Live prompt (resume)')).first().json.text.replace(/\\\\n/g, '\\n')) }},\n  \"policy_rules\": [\n    \"Client must retain full IP ownership upon payment\",\n    \"Confidentiality obligations must survive at least 3 years post-termination\",\n    \"Data protection measures must be mandatory, not discretionary\",\n    \"Dispute resolution must include a mandatory arbitration step before litigation\",\n    \"Force majeure must not cover a party's own operational or staffing failures\",\n    \"Governing law must default to client's jurisdiction\",\n    \"Liability cap must not be reduced below 12 months of contract value\",\n    \"Liability cap must not exceed 12 months of contract value\",\n    \"Payment terms must not exceed 45 days\",\n    \"Subcontracting requires the client's prior written consent\",\n    \"Termination notice period must not be less than 30 days\",\n    \"Warranty period must be at least 60 days\"\n  ]\n}",
         "includeOtherFields": true,
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        96,
-        -32
+        1840,
+        384
       ],
-      "id": "529f6566-64a8-45bc-b2a0-1ddcf80dedaf",
+      "id": "810df840-fcdf-4b05-82de-df5adba67c1b",
       "name": "Config"
     },
     {
@@ -217,16 +217,16 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.2,
       "position": [
-        -1520,
-        -144
+        -688,
+        224
       ],
-      "id": "a2718b8d-2cc7-4068-a413-78bacf5d742f",
+      "id": "056e1451-7e0d-46fd-812a-4bd16d6c5a6f",
       "name": "Webhook1",
       "webhookId": "02d99119-4812-46db-8cff-e7f5e35993cd",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "KE7zhsrkiwm0lKO7",
-          "name": "Header Auth account 290"
+          "id": "azk9QvXe8DOZg5oE",
+          "name": "Header Auth account"
         }
       }
     },
@@ -235,10 +235,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        -1264,
-        -32
+        256,
+        384
       ],
-      "id": "9c045fd1-bea6-4fd7-a38e-47e5056dbc98",
+      "id": "dd6c9414-1566-4009-a583-757fc406fcfb",
       "name": "Pair received"
     },
     {
@@ -264,10 +264,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        -480,
-        80
+        1040,
+        496
       ],
-      "id": "d88d7b48-ad96-4f6e-ab8b-14b75775933b",
+      "id": "2d7eea28-6081-4f3d-a5a7-296f0722bf76",
       "name": "Rejected Response"
     },
     {
@@ -317,10 +317,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        768,
-        16
+        2512,
+        432
       ],
-      "id": "e863f772-2363-4de9-8481-2969100cbbf9",
+      "id": "a1ee71da-76d2-407c-85b8-f7da4819f0a1",
       "name": "Failed clause"
     },
     {
@@ -330,16 +330,16 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1968,
-        -176
+        3712,
+        240
       ],
-      "id": "1f8246ac-fb9d-4c9b-8481-320ebcb29720",
+      "id": "ae9310dc-feaf-4318-8b66-b2a1100e367f",
       "name": "Build Langfuse Payload"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://cloud.langfuse.com/api/public/otel/v1/traces",
+        "url": "http://host.docker.internal:3000/api/public/otel/v1/traces",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpBasicAuth",
         "sendHeaders": true,
@@ -359,15 +359,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        2160,
-        -176
+        3904,
+        240
       ],
-      "id": "a264c380-50a8-4a40-92a6-dbd6428866fb",
+      "id": "56b1f053-2cc3-4984-a09a-335114759f9e",
       "name": "HTTP Request1",
       "credentials": {
         "httpBasicAuth": {
-          "id": "E61YurHjeW657aX3",
-          "name": "Unnamed credential 446"
+          "id": "Q5t9aEoqLJuYe2S5",
+          "name": "HTTP - LANGFUSE (self-hosted)"
         }
       }
     },
@@ -381,10 +381,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        -1072,
-        -32
+        448,
+        384
       ],
-      "id": "1cc049d3-f385-4084-9e4c-2743c5984d90",
+      "id": "1a3ab9af-515f-4316-8459-4254d97a4062",
       "name": "extract previous_file"
     },
     {
@@ -399,10 +399,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        -880,
-        -32
+        640,
+        384
       ],
-      "id": "e5b8c13d-9174-4437-8aed-4c9a5bade02d",
+      "id": "54c9976b-9b17-4185-8d81-d9cc84840fc5",
       "name": "extract current_file"
     },
     {
@@ -414,17 +414,11 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.2,
       "position": [
-        1776,
-        -176
+        3520,
+        240
       ],
-      "id": "c45d6020-d15d-464f-9194-185b64b49a41",
+      "id": "6416b529-dbbb-45e9-9bb9-fcdeea68e687",
       "name": "Microsoft SQL",
-      "credentials": {
-        "microsoftSql": {
-          "id": "Y6MP5GgVH5E8LtKA",
-          "name": "Microsoft SQL account 72"
-        }
-      },
       "disabled": true,
       "onError": "continueRegularOutput"
     },
@@ -433,10 +427,10 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "gorPaAAYEAexin39",
+          "value": "ZmI3IVAM0MUkvB18",
           "mode": "list",
           "cachedResultName": "runs",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/gorPaAAYEAexin39"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/ZmI3IVAM0MUkvB18"
         },
         "filters": {
           "conditions": [
@@ -450,10 +444,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        -480,
-        -176
+        1040,
+        240
       ],
-      "id": "e302d267-fe28-440a-934c-8ca62391bcb8",
+      "id": "d1e05225-9709-4b53-bbea-29eb50e1b64c",
       "name": "Check pair",
       "executeOnce": true,
       "alwaysOutputData": true
@@ -487,10 +481,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.4,
       "position": [
-        -288,
-        -304
+        1232,
+        112
       ],
-      "id": "7095e347-f1d2-4daa-a997-0244f0a727b9",
+      "id": "8e74948c-bdfa-45c5-b81b-683602ab035a",
       "name": "Is duplicate?"
     },
     {
@@ -500,10 +494,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -48,
-        -224
+        1696,
+        192
       ],
-      "id": "bbe541c3-f9b2-48eb-88b9-a488724f658d",
+      "id": "08fa847a-dafa-444f-b080-3009ed2256f8",
       "name": "Restore items"
     },
     {
@@ -511,10 +505,10 @@
         "operation": "upsert",
         "dataTableId": {
           "__rl": true,
-          "value": "gorPaAAYEAexin39",
+          "value": "ZmI3IVAM0MUkvB18",
           "mode": "list",
           "cachedResultName": "runs",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/gorPaAAYEAexin39"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/ZmI3IVAM0MUkvB18"
         },
         "filters": {
           "conditions": [
@@ -660,10 +654,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1568,
-        -176
+        3312,
+        240
       ],
-      "id": "b0db0486-91be-4d50-861c-2766ce5cbeae",
+      "id": "ef8975d3-61d2-48d7-a280-0d8b7bf85959",
       "name": "Save run"
     },
     {
@@ -675,20 +669,20 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        -48,
-        -416
+        1680,
+        -32
       ],
-      "id": "9f0483e2-492b-4e90-b123-a3118ce5a56a",
+      "id": "346c906f-afa3-4a25-9cea-ad4afeff1eb7",
       "name": "Duplicate response"
     },
     {
       "parameters": {
         "dataTableId": {
           "__rl": true,
-          "value": "g4UhSWB8pWoolUsP",
+          "value": "vNpjTK1iEdCV9548",
           "mode": "list",
           "cachedResultName": "error_queue",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/g4UhSWB8pWoolUsP"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/vNpjTK1iEdCV9548"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -771,10 +765,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        992,
-        16
+        2736,
+        432
       ],
-      "id": "c08f86a9-3119-4a70-9de6-5a9853824df8",
+      "id": "c3c38933-66eb-4735-964a-59b4b1a8e057",
       "name": "Insert row"
     },
     {
@@ -784,20 +778,20 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1584,
-        32
+        3328,
+        448
       ],
-      "id": "51956b54-e960-408d-a06c-0d55004950be",
+      "id": "760058fd-4e85-4e5d-9402-77f99bf605d8",
       "name": "Split human queue"
     },
     {
       "parameters": {
         "dataTableId": {
           "__rl": true,
-          "value": "8yMwsgl2L2NOWZxi",
+          "value": "sP2y9nZ1sDq4xnGc",
           "mode": "list",
           "cachedResultName": "human_queue",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/8yMwsgl2L2NOWZxi"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/sP2y9nZ1sDq4xnGc"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -858,10 +852,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1792,
-        32
+        3536,
+        448
       ],
-      "id": "eaab8652-ff86-49ef-be9d-acf8e6e5b1e8",
+      "id": "6580fa37-b14d-46d8-a06c-ac50db9c93ab",
       "name": "Insert row1"
     },
     {
@@ -869,10 +863,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -432,
-        352
+        880,
+        768
       ],
-      "id": "cbe4a21d-b5e4-41f9-b15b-03f9946f0f40",
+      "id": "c11921f6-8812-4d4a-ab76-74bd8cc6a901",
       "name": "Resume trigger"
     },
     {
@@ -880,10 +874,10 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "g4UhSWB8pWoolUsP",
+          "value": "vNpjTK1iEdCV9548",
           "mode": "list",
           "cachedResultName": "error_queue",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/g4UhSWB8pWoolUsP"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/vNpjTK1iEdCV9548"
         },
         "filters": {
           "conditions": [
@@ -897,10 +891,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        -272,
-        352
+        1248,
+        768
       ],
-      "id": "72b3fb33-19ec-4879-9c51-abcf88bd0cd2",
+      "id": "1dfbd1ae-194d-44d2-a86b-55f98d764840",
       "name": "Get row(s)"
     },
     {
@@ -950,10 +944,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        -80,
-        352
+        1440,
+        768
       ],
-      "id": "cfeff259-a2ec-4c8d-a2c5-cd3c2383f57b",
+      "id": "658b8681-90b9-49bd-857d-626f2b6f260f",
       "name": "Prepare retry"
     },
     {
@@ -961,10 +955,10 @@
         "operation": "update",
         "dataTableId": {
           "__rl": true,
-          "value": "g4UhSWB8pWoolUsP",
+          "value": "vNpjTK1iEdCV9548",
           "mode": "list",
           "cachedResultName": "error_queue",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/g4UhSWB8pWoolUsP"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/vNpjTK1iEdCV9548"
         },
         "matchType": "allConditions",
         "filters": {
@@ -1055,33 +1049,33 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1152,
-        -352
+        2896,
+        64
       ],
-      "id": "35bc7a94-cf60-401e-a4ca-781156265016",
+      "id": "360eca42-cc2d-44be-be12-5f49c70d4d17",
       "name": "Update row(s)"
     },
     {
       "parameters": {
-        "jsCode": "const pack = $('Build pack').first().json;\nconst first = $('Code in Python').first().json;\n\nconst IN_PRICE = 1.38;   // USD per 1M input tokens (confirm for your deployment)\nconst OUT_PRICE = 11.00; // USD per 1M output tokens\n\nconst total = first.clauses_total ?? 0;\nconst skipped = first.clauses_skipped ?? 0;\nconst inTok = pack.input_tokens ?? 0;\nconst outTok = pack.output_tokens ?? 0;\nconst table = pack.change_table ?? [];\nconst failed = (pack.error_queue ?? []).length;\n\nreturn [{\n  json: {\n    pair_hash: first.pair_hash,\n    clauses_total: total,\n    clauses_sent: table.length,\n    clauses_skipped: skipped,\n    input_tokens: inTok,\n    output_tokens: outTok,\n    cost_usd: Number(((inTok * IN_PRICE + outTok * OUT_PRICE) / 1e6).toFixed(6)),\n    failed_clauses: failed,\n    duplicate: false\n  }\n}];"
+        "jsCode": "const pack = $('Build pack').first().json;\n\nlet first = {};\ntry {\n  first = $('Code in Python').first().json;\n} catch (e) {\n  first = {};\n}\n\nconst IN_PRICE = 1.38;   // USD per 1M input tokens (confirm for your deployment)\nconst OUT_PRICE = 11.00; // USD per 1M output tokens\n\nconst total = first.clauses_total ?? 0;\nconst skipped = first.clauses_skipped ?? 0;\nconst inTok = pack.input_tokens ?? 0;\nconst outTok = pack.output_tokens ?? 0;\nconst table = pack.change_table ?? [];\nconst failed = (pack.error_queue ?? []).length;\n\nreturn [{\n  json: {\n    pair_hash: first.pair_hash ?? pack.pair_hash,\n    clauses_total: total,\n    clauses_sent: table.length,\n    clauses_skipped: skipped,\n    input_tokens: inTok,\n    output_tokens: outTok,\n    cost_usd: Number(((inTok * IN_PRICE + outTok * OUT_PRICE) / 1e6).toFixed(6)),\n    failed_clauses: failed,\n    duplicate: false\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1552,
-        -384
+        3296,
+        32
       ],
-      "id": "b6f3912b-2e33-4d7f-9919-cbd454422c75",
+      "id": "3c84442d-a491-4114-bc9d-ee3e84407210",
       "name": "Build metrics"
     },
     {
       "parameters": {
         "dataTableId": {
           "__rl": true,
-          "value": "EewfYY6vewjp8XKX",
+          "value": "KzFTXnl3SaXB311t",
           "mode": "list",
           "cachedResultName": "metrics",
-          "cachedResultUrl": "/projects/sjjnbJjfeSAESJyF/datatables/EewfYY6vewjp8XKX"
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/KzFTXnl3SaXB311t"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -1094,8 +1088,7 @@
             "output_tokens": "={{ $json.output_tokens }}",
             "cost_usd": "={{ $json.cost_usd }}",
             "failed_clauses": "={{ $json.failed_clauses }}",
-            "duplicate": "={{ $json.duplicate }}",
-            "duration_seconds": 21.6
+            "duplicate": "={{ $json.duplicate }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -1187,7 +1180,7 @@
               "display": true,
               "type": "number",
               "readOnly": false,
-              "removed": false
+              "removed": true
             },
             {
               "id": "duplicate",
@@ -1208,11 +1201,199 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1776,
-        -384
+        3520,
+        32
       ],
-      "id": "49f96937-43c4-43d9-9fc4-8138f02c64cf",
+      "id": "c26d5c3c-53e5-4134-b3c2-0c300f98916d",
       "name": "Save metrics"
+    },
+    {
+      "parameters": {
+        "triggerOn": "folder",
+        "path": "/files/incoming",
+        "events": [
+          "add"
+        ],
+        "options": {
+          "awaitWriteFinish": true,
+          "usePolling": true
+        }
+      },
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        560
+      ],
+      "id": "de5fb58c-bca1-4123-b0ec-dc9073290378",
+      "name": "Watched folder"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "72389090-de0e-4da6-92d7-c286238d195c",
+              "leftValue": "={{ $json.path }}",
+              "rightValue": "_current.docx",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.4,
+      "position": [
+        -528,
+        752
+      ],
+      "id": "3af88f5f-145b-463e-9efd-87f83364274c",
+      "name": "Only current files"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "685dc69f-1ada-46ab-8d0b-0e94b2ec920e",
+              "name": "current_path",
+              "value": "={{ $json.path }}",
+              "type": "string"
+            },
+            {
+              "id": "b27febbc-02e7-4585-84ff-69b65bd5cc6e",
+              "name": "previous_path",
+              "value": "={{ $json.path.replace('_current.docx', '_previous.docx') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -352,
+        752
+      ],
+      "id": "8d5f2601-b008-40eb-a857-f9a5a36fb6c9",
+      "name": "Paths"
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $json.current_path }}",
+        "options": {
+          "dataPropertyName": "current_file"
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        -112,
+        864
+      ],
+      "id": "6728accf-b7a0-45b6-9d25-ad74af584daf",
+      "name": "Read current"
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $json.previous_path }}",
+        "options": {
+          "dataPropertyName": "previous_file"
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        -128,
+        592
+      ],
+      "id": "f8302816-ed04-42b1-90fc-e0a1efaa78ac",
+      "name": "Read previous"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        64,
+        704
+      ],
+      "id": "b84bcea0-f781-45a9-93ef-302d45cdc5cf",
+      "name": "Join files"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "rLuProy5tSvBJsAQ",
+          "mode": "list",
+          "cachedResultName": "prompts",
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/rLuProy5tSvBJsAQ"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "keyValue": "live"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        192
+      ],
+      "id": "58eaba87-d789-48b4-9679-32d50646d6c8",
+      "name": "Live prompt"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "rLuProy5tSvBJsAQ",
+          "mode": "list",
+          "cachedResultName": "prompts",
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/rLuProy5tSvBJsAQ"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "keyValue": "live"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        768
+      ],
+      "id": "4932278b-75b4-47f0-b153-3d70d8aa524b",
+      "name": "Live prompt (resume)"
     }
   ],
   "pinData": {},
@@ -1353,11 +1534,6 @@
         ]
       ]
     },
-    "Rejected Response": {
-      "main": [
-        []
-      ]
-    },
     "Build Langfuse Payload": {
       "main": [
         [
@@ -1445,7 +1621,7 @@
         ],
         [
           {
-            "node": "Restore items",
+            "node": "Live prompt",
             "type": "main",
             "index": 0
           }
@@ -1500,7 +1676,7 @@
       "main": [
         [
           {
-            "node": "Get row(s)",
+            "node": "Live prompt (resume)",
             "type": "main",
             "index": 0
           }
@@ -1529,11 +1705,6 @@
         ]
       ]
     },
-    "Update row(s)": {
-      "main": [
-        []
-      ]
-    },
     "Build metrics": {
       "main": [
         [
@@ -1544,19 +1715,116 @@
           }
         ]
       ]
+    },
+    "Watched folder": {
+      "main": [
+        [
+          {
+            "node": "Only current files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only current files": {
+      "main": [
+        [
+          {
+            "node": "Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paths": {
+      "main": [
+        [
+          {
+            "node": "Read current",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Read previous",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read current": {
+      "main": [
+        [
+          {
+            "node": "Join files",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Read previous": {
+      "main": [
+        [
+          {
+            "node": "Join files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Join files": {
+      "main": [
+        [
+          {
+            "node": "Pair received",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Live prompt": {
+      "main": [
+        [
+          {
+            "node": "Restore items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Live prompt (resume)": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "saveDataSuccessExecution": "all",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
   },
-  "versionId": "f8c8ce06-2d6a-485b-bb8d-9ef3b4e8f65e",
+  "versionId": "e77ef5fe-9c0c-4a43-a963-2f8ee4893642",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "63a5c09d7df4e9006fc7cc7cbccb98f36d8c6163a7231828e05693fe1789bd06"
+    "instanceId": "b8bad8c7b4ce085e82276d557e560beb971e1ca23fd0c8839073174b8746f116"
   },
   "nodeGroups": [],
-  "id": "PqHWtQG3ZWrGNFrd",
+  "id": "w2T0gM6VhvJYXLom",
   "tags": []
 }

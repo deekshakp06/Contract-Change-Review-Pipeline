@@ -1,0 +1,485 @@
+{
+  "name": "PromptReleaseCheck",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "eecd3642-0bb1-451a-b131-a0a7be9728c6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "89809701-7f82-45ad-a6a6-15241e705ab3",
+              "name": "live",
+              "value": "classify_v1",
+              "type": "string"
+            },
+            {
+              "id": "5b038f7e-d5be-496b-9712-7cf250dabc82",
+              "name": "candidate",
+              "value": "classify_v1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "8f3b51f0-1731-4bbe-8d6a-ede57529eb71",
+      "name": "Inputs"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/files/incoming/evaluation_*.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "f3b4ddd3-7a3d-4b10-af20-b997e73e5962",
+      "name": "Read evaluation files"
+    },
+    {
+      "parameters": {
+        "jsCode": "const NOISE_MARGIN = 3.0;\n\nconst items = $input.all();\nconst files = {};\nfor (let i = 0; i < items.length; i++) {\n  const buf = await this.helpers.getBinaryDataBuffer(i, 'data');\n  files[items[i].json.fileName] = JSON.parse(buf.toString('utf8'));\n}\n\nconst inp = $('Inputs').first().json;\nconst liveName = inp.live;\nconst candName = inp.candidate;\nconst cases = files['evaluation_set_30.json'];\nconst n = cases.length;\n\nfunction normRule(s) {\n  s = String(s ?? '').trim().toLowerCase().replace(/\\.+$/, '');\n  if (s.startsWith('none') || s === '' || s === 'n/a') return 'none';\n  return s;\n}\nfunction ruleMatch(expected, predicted) {\n  const e = normRule(expected), p = normRule(predicted);\n  if (e === 'none' || p === 'none') return e === p;\n  return e === p || e.includes(p) || p.includes(e);\n}\nfunction score(version) {\n  const runs = files[`evaluation_${version}.json`].all_runs;\n  const risk = [], rule = [];\n  const perCase = new Array(n).fill(0);\n  for (const run of runs) {\n    let rOk = 0, uOk = 0;\n    run.results.forEach((r, i) => {\n      if (r.match) { rOk++; perCase[i]++; }\n      if (ruleMatch(cases[i].policy_rule, r.predicted_policy_rule)) uOk++;\n    });\n    risk.push(rOk / n * 100);\n    rule.push(uOk / n * 100);\n  }\n  const avg = a => a.reduce((x, y) => x + y, 0) / a.length;\n  return { runs: runs.length, risk: avg(risk), rule: avg(rule), perCase };\n}\n\nconst live = score(liveName);\nconst cand = score(candName);\n\nconst reasons = [];\nif (cand.risk < live.risk - NOISE_MARGIN)\n  reasons.push(`risk-level accuracy lower: ${cand.risk.toFixed(1)}% vs live ${live.risk.toFixed(1)}%`);\nif (cand.rule < live.rule - NOISE_MARGIN)\n  reasons.push(`policy-rule match lower: ${cand.rule.toFixed(1)}% vs live ${live.rule.toFixed(1)}%`);\n\nconst regressions = [];\nfor (let i = 0; i < n; i++) {\n  if (live.perCase[i] === live.runs && cand.perCase[i] === 0) {\n    regressions.push(`${cases[i].heading} (pair ${cases[i].pair_id})`);\n  }\n}\nif (regressions.length)\n  reasons.push(`${regressions.length} stable case(s) regressed (live right every run, candidate never)`);\n\nreturn [{\n  json: {\n    live: liveName,\n    candidate: candName,\n    live_risk: Number(live.risk.toFixed(1)),\n    live_rule: Number(live.rule.toFixed(1)),\n    cand_risk: Number(cand.risk.toFixed(1)),\n    cand_rule: Number(cand.rule.toFixed(1)),\n    regressions: regressions.length,\n    decision: reasons.length ? 'BLOCK' : 'PASS',\n    reasons: reasons.join('; ')\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "0cbf2c92-b68b-40ab-8dce-2fa0021b9e11",
+      "name": "Release check"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "01850286-e771-4236-a09f-4e0fcf812c4b",
+              "leftValue": "={{ $('Release check').first().json.decision }}",
+              "rightValue": "PASS",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "987fe526-10ce-44a4-a801-e7d37b572668",
+      "name": "Passed?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        112
+      ],
+      "id": "d425e3e0-b4f2-4fd2-981f-6920386b5b44",
+      "name": "Blocked - live prompt unchanged"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "rLuProy5tSvBJsAQ",
+          "mode": "list",
+          "cachedResultName": "prompts",
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/rLuProy5tSvBJsAQ"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "keyValue": "live"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "retired"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "version",
+              "displayName": "version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        -112
+      ],
+      "id": "3a98abe0-20d6-4bf2-8e71-2c7eb6206fd2",
+      "name": "Retire live prompt"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "rLuProy5tSvBJsAQ",
+          "mode": "list",
+          "cachedResultName": "prompts",
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/rLuProy5tSvBJsAQ"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "version",
+              "keyValue": "={{ $('Release check').first().json.candidate }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "live"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "version",
+              "displayName": "version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1568,
+        -112
+      ],
+      "id": "18825ad2-b4b5-420e-8bf1-3fa8e6296d3d",
+      "name": "Promote candidate"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "HuwQcEvaZx5gh2FJ",
+          "mode": "list",
+          "cachedResultName": "release_log",
+          "cachedResultUrl": "/projects/VckD1x6JYAfhUzjT/datatables/HuwQcEvaZx5gh2FJ"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "live": "={{ $json.live }}",
+            "candidate": "={{ $json.candidate }}",
+            "live_risk": "={{ $json.live_risk }}",
+            "decision": "={{ $json.decision }}",
+            "reasons": "={{ $json.reasons }}",
+            "live_rule": "={{ $json.live_rule }}",
+            "cand_risk": "={{ $json.cand_risk }}",
+            "cand_rule": "={{ $json.cand_rule }}",
+            "regressions": "={{ $json.regressions }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "live",
+              "displayName": "live",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "candidate",
+              "displayName": "candidate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "decision",
+              "displayName": "decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reasons",
+              "displayName": "reasons",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "live_risk",
+              "displayName": "live_risk",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "live_rule",
+              "displayName": "live_rule",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "cand_risk",
+              "displayName": "cand_risk",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "cand_rule",
+              "displayName": "cand_rule",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "regressions",
+              "displayName": "regressions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        0
+      ],
+      "id": "4fdfd7c6-c613-490b-896e-8ba67c2c8197",
+      "name": "Log check"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inputs": {
+      "main": [
+        [
+          {
+            "node": "Read evaluation files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read evaluation files": {
+      "main": [
+        [
+          {
+            "node": "Release check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Release check": {
+      "main": [
+        [
+          {
+            "node": "Log check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Passed?": {
+      "main": [
+        [
+          {
+            "node": "Retire live prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Blocked - live prompt unchanged",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retire live prompt": {
+      "main": [
+        [
+          {
+            "node": "Promote candidate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log check": {
+      "main": [
+        [
+          {
+            "node": "Passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "06ec1b25-833f-491a-9f85-602d5672c79f",
+  "meta": {
+    "instanceId": "b8bad8c7b4ce085e82276d557e560beb971e1ca23fd0c8839073174b8746f116"
+  },
+  "nodeGroups": [],
+  "id": "MojpHnEkkSeDUbft",
+  "tags": []
+}

@@ -25,3 +25,4 @@ workflows/ContractChangeReview.json
 /*.docx
 
 docker-compose.override.yml
+watch/
