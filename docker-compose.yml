@@ -20,8 +20,13 @@ x-n8n-env: &n8n-env
   QUEUE_BULL_REDIS_HOST: redis
   QUEUE_BULL_REDIS_PORT: 6379
   OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS: "true"
-  NO_PROXY: postgres,redis,n8n,n8n-worker,task-runners,host.docker.internal,localhost,127.0.0.1
-  no_proxy: postgres,redis,n8n,n8n-worker,task-runners,host.docker.internal,localhost,127.0.0.1
+  N8N_LOG_LEVEL: info
+  N8N_LOG_FORMAT: json
+  N8N_LOG_OUTPUT: console,file
+  N8N_LOG_FILE_COUNT_MAX: "30"
+  N8N_LOG_FILE_SIZE_MAX: "16"
+  NO_PROXY: postgres,redis,n8n,n8n-worker,n8n-worker-2,task-runners,task-runners-2,langfuse-web,host.docker.internal,localhost,127.0.0.1
+  no_proxy: postgres,redis,n8n,n8n-worker,n8n-worker-2,task-runners,task-runners-2,langfuse-web,host.docker.internal,localhost,127.0.0.1
 
 services:
   postgres:
@@ -63,6 +68,9 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./watch:/files/incoming
+    networks:
+      - default
+      - langfuse
 
   n8n-worker:
     image: n8nio/n8n:${N8N_VERSION:-latest}
@@ -75,6 +83,24 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./watch:/files/incoming
+    networks:
+      - default
+      - langfuse
+
+  n8n-worker-2:
+    image: n8nio/n8n:${N8N_VERSION:-latest}
+    command: worker
+    restart: unless-stopped
+    environment:
+      <<: *n8n-env
+    depends_on:
+      - n8n
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./watch:/files/incoming
+    networks:
+      - default
+      - langfuse
 
   task-runners:
     image: n8nio/runners:${N8N_VERSION:-latest}
@@ -88,6 +114,24 @@ services:
       - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro
     depends_on:
       - n8n-worker
+
+  task-runners-2:
+    image: n8nio/runners:${N8N_VERSION:-latest}
+    restart: unless-stopped
+    environment:
+      N8N_RUNNERS_TASK_BROKER_URI: http://n8n-worker-2:5679
+      N8N_RUNNERS_AUTH_TOKEN: ${N8N_RUNNERS_AUTH_TOKEN}
+      NO_PROXY: n8n,n8n-worker-2,localhost,127.0.0.1
+      no_proxy: n8n,n8n-worker-2,localhost,127.0.0.1
+    volumes:
+      - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro
+    depends_on:
+      - n8n-worker-2
+
+networks:
+  langfuse:
+    external: true
+    name: langfuse-selfhost_default
 
 volumes:
   pg_data:
