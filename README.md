@@ -2,6 +2,10 @@
 
 An automated reviewer for contract revisions. Give it two versions of a Statement of Work and it works out which clauses changed, has an LLM rate only those changes as **High / Medium / Low** risk against a 12-rule policy checklist, and returns a review pack: a clause-by-clause change table, a human review queue, and a ready-to-send mail draft (never sent automatically).
 
+## Architecture
+
+![Architecture diagram](docs/architecture.png)
+
 Built with **n8n**, **Azure OpenAI (GPT-5.1)** and **Langfuse**, with a Python reference implementation and an evaluation set to check the results.
 
 ## Why it is built this way
